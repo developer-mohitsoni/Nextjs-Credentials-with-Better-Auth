@@ -40,6 +40,7 @@ const SignUp = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { name, email, password } = values;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, error } = await authClient.signUp.email(
       {
         email,
@@ -48,12 +49,12 @@ const SignUp = () => {
         callbackURL: "/sign-in",
       },
       {
-        onRequest: (ctx) => {
+        onRequest: () => {
           toast({
             title: "Please wait...",
           });
         },
-        onSuccess: (ctx) => {
+        onSuccess: () => {
           form.reset();
         },
         onError: (ctx) => {
