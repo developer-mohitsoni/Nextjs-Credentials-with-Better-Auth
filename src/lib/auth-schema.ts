@@ -21,3 +21,8 @@ export const formSchema = z.object({
       message: "Password lenght cannot exceed 50 characters",
     }),
 });
+
+export const signInFormSchema = formSchema.pick({
+  email: true,
+  password: true,
+});
