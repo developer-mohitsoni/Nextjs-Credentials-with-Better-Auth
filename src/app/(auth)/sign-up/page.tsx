@@ -57,7 +57,14 @@ const SignUp = () => {
           form.reset();
         },
         onError: (ctx) => {
-          alert(ctx.error.message);
+          toast({
+            title: ctx.error.message,
+            variant: "destructive",
+          });
+          form.setError("email", {
+            type: "manual",
+            message: ctx.error.message,
+          });
         },
       }
     );
