@@ -26,8 +26,10 @@ import { Button } from "@/components/ui/button";
 import { signInFormSchema } from "@/lib/auth-schema";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const SignIn = () => {
+  const router = useRouter(); // Initialize the router
   const form = useForm<z.infer<typeof signInFormSchema>>({
     resolver: zodResolver(signInFormSchema),
     defaultValues: {
@@ -54,6 +56,7 @@ const SignIn = () => {
         },
         onSuccess: () => {
           form.reset();
+          router.push("/dashboard"); // Use router.push for navigation
         },
         onError: (ctx) => {
           alert(ctx.error.message);
