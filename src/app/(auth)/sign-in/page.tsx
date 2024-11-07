@@ -102,7 +102,7 @@ const SignIn = () => {
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="flex justify-center">
+        <CardFooter className="flex justify-center gap-1.5">
           <p className="text-sm text-muted-foreground">
             Don't have an account yet?
           </p>
