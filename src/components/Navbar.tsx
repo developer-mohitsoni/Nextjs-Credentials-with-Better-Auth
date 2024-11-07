@@ -1,8 +1,15 @@
 import { AirVent } from "lucide-react";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return (
     <>
       <div className="border-b px-4">
@@ -12,9 +19,24 @@ const Navbar = () => {
             <span className="font-bold">nextsecure.</span>
           </Link>
           <div>
-            <Link href="/sign-in" className={buttonVariants()}>
-              Sign In
-            </Link>
+            {session ? (
+              <form
+                action={async () => {
+                  "use server";
+
+                  await auth.api.signOut({
+                    headers: await headers(),
+                  });
+                  redirect("/");
+                }}
+              >
+                <Button type="submit">Sign Out</Button>
+              </form>
+            ) : (
+              <Link href="/sign-in" className={buttonVariants()}>
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       </div>
